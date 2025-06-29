@@ -4,6 +4,8 @@ import react from "@vitejs/plugin-react-swc";
 import svgr from "vite-plugin-svgr";
 import path from "path";
 
+import tailwindcss from "@tailwindcss/vite";
+
 // CJS モジュールなので import * as でも OK
 import StyleDictionaryPackage from "style-dictionary";
 const StyleDictionary = StyleDictionaryPackage as unknown as {
@@ -14,6 +16,7 @@ export default defineConfig({
   plugins: [
     react(),
     svgr(),
+    tailwindcss(),
     // StyleDictionary プラグイン
     ((): Plugin => ({
       name: "style-dictionary",
@@ -53,9 +56,10 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "http://localhost:8001",
+        target: "http://127.0.0.1:8001",
         changeOrigin: true,
-        rewrite: (p) => p.replace(/^\/api/, ""),
+        secure: false,
+        ws: true,
       },
     },
   },

@@ -1,0 +1,36 @@
+{# marketplace/users/templates/users/email_verification_email.html #}
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>メールアドレス確認のお願い</title>
+  </head>
+  <body>
+    <p>{{ username }} 様、</p>
+    <p>
+      この度はご登録ありがとうございます。以下のボタンをクリックし、メールアドレスの確認を行ってください。
+    </p>
+    <p>
+      <a
+        href="{{ verification_link }}"
+        style="
+          display: inline-block;
+          background-color: #007bff;
+          color: white;
+          padding: 10px 20px;
+          text-decoration: none;
+          border-radius: 4px;
+        "
+        >メールアドレスを確認する</a
+      >
+    </p>
+    <p>
+      もしボタンが動作しない場合は、以下のURLをコピーしてブラウザに貼り付けてください。
+    </p>
+    <p><a href="{{ verification_link }}">{{ verification_link }}</a></p>
+    <p>（リンクの有効期限は24時間です）</p>
+    <hr />
+    <p>ご不明な点がありましたら、お気軽にお問い合わせください。</p>
+    <p>―― 運営チーム</p>
+  </body>
+</html>
