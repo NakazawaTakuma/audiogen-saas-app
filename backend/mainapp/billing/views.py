@@ -206,11 +206,18 @@ class PlanViewSet(viewsets.ReadOnlyModelViewSet):
     """プラン管理ビューセット"""
     queryset = Plan.objects.filter(is_active=True).order_by('sort_order', 'price')
     serializer_class = PlanSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]  # 認証不要に変更
     
     @action(detail=False, methods=['get'])
     def comparison(self, request):
         """プラン比較情報を取得"""
+        # 認証が必要なため、認証チェックを追加
+        if not request.user.is_authenticated:
+            return Response(
+                {"detail": "認証が必要です"}, 
+                status=status.HTTP_401_UNAUTHORIZED
+            )
+        
         user = request.user
         
         # 現在のプランを取得

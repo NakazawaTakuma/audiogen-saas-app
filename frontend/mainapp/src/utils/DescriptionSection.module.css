@@ -1,0 +1,12 @@
+/* DescriptionSection.module.css */
+.container {
+  /* 複数スペースを collapse せず、そのまま表示 */
+  white-space: pre-wrap;
+  /* マージン・フォントなどお好みで */
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+.container a {
+  color: #007bff;
+  text-decoration: underline;
+}

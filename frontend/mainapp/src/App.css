@@ -1,0 +1,39 @@
+#root {
+  width: 100%;
+  /* max-width: 1280px; */
+  margin: 0 auto;
+  /* padding: 2rem; */
+  text-align: center;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ヘッダーは上部に固定 */
+.main-layout {
+  display: flex;
+  /* サイドバーの幅分だけマージン（またはpadding）を左側に追加 */
+  margin-left: 80px;
+  padding: 1rem;
+}
+.content-area {
+  overflow-x: hidden; /* 横スクロールを禁止 */
+}
+
+@media (max-width: 768px) {
+  .main-layout {
+    margin-left: 0px;
+  }
+
+  .content-area {
+    padding-bottom: 50px;
+  }
+}
+/* content-area は主要コンテンツ部分 */
+.content-area {
+  flex: 1;
+  padding-top: 50px;
+}

@@ -59,9 +59,9 @@ const PricingPage: React.FC = () => {
     const fetchPlans = async () => {
       try {
         const res = await fetch("/api/billing/api/plans/", {
-          headers: {
+          headers: user ? {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
+          } : {},
         });
         if (res.ok) {
           const data = await res.json();
@@ -74,11 +74,8 @@ const PricingPage: React.FC = () => {
       }
     };
 
-    if (user) {
-      fetchPlans();
-    } else {
-      setLoadingPlans(false);
-    }
+    // ログイン状態に関係なくプランを取得
+    fetchPlans();
   }, [user]);
 
   // サブスク状況を取得
@@ -242,11 +239,21 @@ const PricingPage: React.FC = () => {
                   ))}
                 </ul>
                 
-                {isCurrentPlan(plan) ? (
+                {!user ? (
+                  // 非ログイン状態
+                  <Button 
+                    onClick={() => openLogin(location.pathname)}
+                    className="w-full"
+                  >
+                    ログインして開始
+                  </Button>
+                ) : isCurrentPlan(plan) ? (
+                  // 現在のプラン
                   <Button disabled className="w-full">
                     現在のプラン
                   </Button>
                 ) : canUpgrade(plan) ? (
+                  // アップグレード可能
                   <Button 
                     onClick={() => handleUpgrade(plan.id)} 
                     disabled={loading}
@@ -255,6 +262,7 @@ const PricingPage: React.FC = () => {
                     {loading ? "処理中..." : plan.is_free ? "無料プランに変更" : "アップグレード"}
                   </Button>
                 ) : (
+                  // ダウングレード不可
                   <Button disabled className="w-full">
                     ダウングレード不可
                   </Button>
@@ -263,6 +271,27 @@ const PricingPage: React.FC = () => {
             </Card>
           ))}
         </div>
+
+        {/* 非ログイン状態での説明 */}
+        {!user && (
+          <div className="mt-12 text-center">
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 max-w-2xl mx-auto">
+              <h3 className="text-lg font-semibold text-blue-800 mb-2">
+                プランを選択するにはログインが必要です
+              </h3>
+              <p className="text-blue-700 mb-4">
+                ログインすると、プランの購入・変更が可能になります。
+                無料プランから始めて、必要に応じてアップグレードできます。
+              </p>
+              <Button 
+                onClick={() => openLogin(location.pathname)}
+                className="bg-blue-600 hover:bg-blue-700"
+              >
+                ログイン / 新規登録
+              </Button>
+            </div>
+          </div>
+        )}
       </div>
     </Layout>
   );

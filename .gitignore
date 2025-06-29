@@ -16,6 +16,7 @@ __pycache__/
 *.sqlite3
 env/
 venv/
+.venv/
 .env
 *.env
 .env.*
@@ -25,6 +26,12 @@ media/
 staticfiles/
 db.sqlite3
 *.log
+
+# ─── AI Models ────────────────────
+model_cache/
+*.safetensors
+*.bin
+*.ckpt
 
 # ─── IDE/Editor ──────────────────
 .vscode/
@@ -54,3 +61,7 @@ htmlcov/
 
 # ─── Local development ───────────
 local_settings.py
+
+# ─── Large files ──────────────────
+*.xml
+repomix-output.xml
